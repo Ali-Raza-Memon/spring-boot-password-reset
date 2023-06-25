@@ -1,0 +1,124 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<!--      th:replace="base::layout(~{::section})">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Login page</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<section>-->
+
+<!--    <div class="container p-5">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6 offset-md-3">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-header text-center fs-4">Login Page</div>-->
+<!--                    <div class="card-body"></div>-->
+
+<!--                    <form action="/Login" method="post">-->
+
+<!--                        <div class="mb-3">-->
+
+<!--                            <label>Enter Email</label>-->
+<!--                            <input-->
+<!--                                    type="email"-->
+<!--                                    name="username"-->
+<!--                                    class="form-control"/>-->
+<!--                        </div>-->
+
+
+
+
+
+<!--                        <div class="mb-3">-->
+
+<!--                            <label>Enter Password</label>-->
+<!--                            <input-->
+<!--                                    type="password"-->
+<!--                                    name="password"-->
+<!--                                    class="form-control"/>-->
+<!--                        </div>-->
+
+<!--                        <button class="btn btn-primary col-md-12">Register</button>-->
+
+
+
+<!--                    </form>-->
+
+
+
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+
+
+<!--</section>-->
+
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+</head>
+<body>
+
+
+<section>
+
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center fs-4">Login Page</div>
+
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Invalid username & Password</div>
+
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        Logout Sucessfully</div>
+
+                    <div class="card-body">
+                        <form action="/login" method="post">
+
+                            <div class="mb-3">
+                                <label>Enter Email</label> <input type="text" name="username"
+                                                                  class="form-control">
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label>Enter Password</label> <input type="text"
+                                                                     name="password" class="form-control">
+                            </div>
+                            <button class="btn btn-primary col-md-12">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</section>
+
+
+</body>
+</html>
