@@ -68,4 +68,16 @@ public class UserController {
     }
 
 
+    @GetMapping("/loadForgotPassword")
+    public String  loadForgetPassword(){
+        return "forget_password";
+    }
+
+    @GetMapping("/loadResetPassword")
+    public String  loadResetPassword(){
+        return "reset_password";
+    }
+
+
+
 }
