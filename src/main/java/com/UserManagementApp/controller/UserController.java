@@ -4,12 +4,10 @@ import com.UserManagementApp.model.User;
 import com.UserManagementApp.repository.UserRepository;
 import com.UserManagementApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -21,6 +19,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @ModelAttribute
     private void userDetails(Model m, Principal p){
@@ -74,8 +76,9 @@ public class UserController {
         return "forget_password";
     }
 
-    @GetMapping("/loadResetPassword")
-    public String  loadResetPassword(){
+    @GetMapping("/loadResetPassword/{id}")
+    public String  loadResetPassword(@PathVariable int id,Model m){
+        m.addAttribute("id",id);
         return "reset_password";
     }
 
@@ -87,12 +90,29 @@ public class UserController {
 
             if(user != null){
                 System.out.println( "User Id : "+user.getId());
-                return "redirect:/loadResetPassword";
+                return "reset_password";
 
             }else{
                 session.setAttribute("msg","Invalid email or mobile number");
                 return "forget_password";
             }
     }
+
+    @PostMapping("/changePassword")
+    public String resetPassword(@RequestParam String psw,@RequestParam Integer id, HttpSession session){
+        User user = userRepository.findById(id).get();
+        String encryptPsw = passwordEncoder.encode(psw);
+        user.setPassword(encryptPsw);
+        User updateUser = userRepository.save(user);
+
+        if(updateUser != null){
+            session.setAttribute("msg","Password changed successfully");
+        }
+
+        return "redirect:/loadForgotPassword";
+    }
+
+
+
 
 }
