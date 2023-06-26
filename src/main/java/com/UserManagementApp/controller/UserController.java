@@ -72,31 +72,39 @@ public class UserController {
 
 
     @GetMapping("/loadForgotPassword")
-    public String  loadForgetPassword(){
+    public String loadForgetPassword(){
+
         return "forget_password";
     }
 
     @GetMapping("/loadResetPassword/{id}")
-    public String  loadResetPassword(@PathVariable int id,Model m){
+    public String loadResetPassword(@PathVariable int id, Model m){
         m.addAttribute("id",id);
         return "reset_password";
     }
 
 
     @PostMapping("/forgetPassword")
-    public String forgetPassword(@RequestParam String email,@RequestParam String mobileNumber,HttpSession session){
+    public String forgotPassword(@RequestParam String email,@RequestParam String mobileNumber,HttpSession session){
 
         User user = userRepository.findByEmailAndMobileNumber(email,mobileNumber);
 
             if(user != null){
-                System.out.println( "User Id : "+user.getId());
-                return "reset_password";
-
+                return "redirect:/loadResetPassword/"+user.getId();
+//                return "reset_password";
             }else{
                 session.setAttribute("msg","Invalid email or mobile number");
                 return "forget_password";
             }
     }
+
+
+
+
+
+
+
+
 
     @PostMapping("/changePassword")
     public String resetPassword(@RequestParam String psw,@RequestParam Integer id, HttpSession session){
