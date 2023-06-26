@@ -80,22 +80,19 @@ public class UserController {
     }
 
 
-
     @PostMapping("/forgetPassword")
     public String forgetPassword(@RequestParam String email,@RequestParam String mobileNumber,HttpSession session){
 
         User user = userRepository.findByEmailAndMobileNumber(email,mobileNumber);
 
-
             if(user != null){
-                return "reset_password";
+                System.out.println( "User Id : "+user.getId());
+                return "redirect:/loadResetPassword";
+
             }else{
                 session.setAttribute("msg","Invalid email or mobile number");
                 return "forget_password";
             }
     }
-
-
-
 
 }
