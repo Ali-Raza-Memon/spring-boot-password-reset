@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -77,6 +78,23 @@ public class UserController {
     public String  loadResetPassword(){
         return "reset_password";
     }
+
+
+
+    @PostMapping("/forgetPassword")
+    public String forgetPassword(@RequestParam String email,@RequestParam String mobileNumber,HttpSession session){
+
+        User user = userRepository.findByEmailAndMobileNumber(email,mobileNumber);
+
+            if(user != null){
+                return "reset_password";
+            }else{
+                session.setAttribute("msg","Invalid email or mobile number");
+                return "forget_password";
+            }
+
+    }
+
 
 
 
