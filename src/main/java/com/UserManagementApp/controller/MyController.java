@@ -18,7 +18,6 @@ public class MyController {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -48,7 +47,6 @@ public class MyController {
         User loginUser = userRepository.findByEmail(email);
 
         boolean f =passwordEncoder.matches(oldPass,loginUser.getPassword());
-
 
         if(f){
 
