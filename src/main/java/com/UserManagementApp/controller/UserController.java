@@ -86,13 +86,13 @@ public class UserController {
 
         User user = userRepository.findByEmailAndMobileNumber(email,mobileNumber);
 
+
             if(user != null){
                 return "reset_password";
             }else{
                 session.setAttribute("msg","Invalid email or mobile number");
                 return "forget_password";
             }
-
     }
 
 
